@@ -4,3 +4,16 @@
   grid-template-columns: repeat(3, 1fr) /*primeiro a qntd, depois a unidade de medida onde fr significa uma fração do espaço - adaptando, funciona bem só para os 9 elementos pq sao iguais*/;
   gap: 15px;
 }
+
+.gameContent {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.gameInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from './Game.module.css'
+import Icon from '../icon/Icon'
 
 import GameOption from '../gameOption/GameOption'
 
@@ -7,17 +8,42 @@ import GameOption from '../gameOption/GameOption'
 
 function Game () {
   const [gameState, setGameState] = useState(Array(9).fill(0))
+  const [currentPlayer, setCurrentPlayer] = useState(1)
+
+  const handleClick = (pos) => {
+    if (gameState[pos] === 0) {
+      let newGameState = [...gameState]
+      newGameState[pos] = currentPlayer
+      setCurrentPlayer(currentPlayer * -1)
+      setGameState(newGameState)
+    }
+    //console.log(pos)    
+  }
 
   return (
-    <div className={styles.game}>
+    <div className={styles.gameContent}>
+      <div className={styles.game}>
       {
         gameState.map((value, pos)=>
           <GameOption 
             key={`game-option-pos-${pos}`}
+            status={value}
+            /*onClick={(pos)=>{console.log("CLICK: ", pos)}}*/
+            onClick={() => handleClick(pos)}
           />
         )
       } 
-    </div>
+      </div>
+      <div className={styles.gameInfo}>
+        <h4>Próximo a jogar:</h4>
+        {
+          currentPlayer === 1 && <Icon iconName="circle"/>
+        }
+        {
+          currentPlayer === -1 && <Icon iconName="x"/>
+        }
+      </div>
+    </div>    
   )
 }
 
