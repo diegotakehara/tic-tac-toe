@@ -1,0 +1,6 @@
+.game {
+  /* poderia ser com flex, porem ele é usado para alinhar coisas no site em si, ex: imgs q vc quer adaptacao alinhada automatica a tela, html tende a usar todo o espaço. Neste caso dos quadrados alinhados em 3x3, melhor utilizar grid*/
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) /*primeiro a qntd, depois a unidade de medida onde fr significa uma fração do espaço - adaptando, funciona bem só para os 9 elementos pq sao iguais*/;
+  gap: 15px;
+}
