@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react' /*useEffect é sempre usada quando queremos uma atualização sem que o usuario tenha interagido*/
 import styles from './Game.module.css'
-import Icon from '../icon/Icon'
+
 
 import GameOption from '../gameOption/GameOption'
+import GameInfo from '../gameInfo/GameInfo'
 
 /* let array = Array(9).fill(0) - passamos nessa funcao com qtd de posicoes e em fill o valor em q a 1ª pos começará, mas como react nao pode usar let, passaremos uma const dentro da função:*/
 
@@ -46,6 +47,11 @@ function Game () {
     })
   }
 
+  const handleReset = () => {
+    setGameState(Array(9).fill(0)) //transforma para um array em branco de 9 zeros
+    setWinner(0)
+  }
+
   useEffect(()=>{
     setCurrentPlayer(currentPlayer * -1) //console.log("use effect 02 - em game state")
     verifyGame()
@@ -65,15 +71,11 @@ function Game () {
         )
       } 
       </div>
-      <div className={styles.gameInfo}>
-        <h4>Próximo a jogar:</h4>
-        {
-          currentPlayer === 1 && <Icon iconName="circle"/>
-        }
-        {
-          currentPlayer === -1 && <Icon iconName="x"/>
-        }
-      </div>
+      <GameInfo 
+        currentPlayer={currentPlayer}
+        winner={winner}
+        onReset={handleReset}
+      /> {/*uma boa prática no react é manter os componentes pequenos, quando  crescem, o ideal é dividi-los em suas responsabilidades, por isso levamos a div info game anteriormente neste jsx para a pasta criada gameInfo e jsx e css dentro desta. chamando a funcao GameInfo dentro da tag onde estava a div*/} 
     </div>    
   )
 }
