@@ -24,6 +24,7 @@ function Game () {
   const [currentPlayer, setCurrentPlayer] = useState(-1)
   const [winner, setWinner] = useState(0)
   const [winnerLine, setWinnerLine] = useState([])
+  const [draw, setDraw] = useState(false)
 
   const handleClick = (pos) => {
     if (gameState[pos] === 0 && winner === 0) {
@@ -53,6 +54,14 @@ function Game () {
     setGameState(Array(9).fill(0)) //transforma para um array em branco de 9 zeros
     setWinner(0)
     setWinnerLine([])
+    setDraw(false)
+  }
+
+  const verifyDraw = () => {
+    /*if (gameState.filter((value) => value === 0).length === 0) OU: */
+    if (gameState.find((value) => value === 0) === undefined && winner === 0) {
+      setDraw(true)
+    }
   }
 
   const verifyWinnerLine = (pos) => 
@@ -61,8 +70,13 @@ function Game () {
   useEffect(()=>{
     setCurrentPlayer(currentPlayer * -1) //console.log("use effect 02 - em game state")
     verifyGame()
+    verifyDraw() //dentro do useEffect nao necessariamente é sequencial e se o draw entrar antes do game, pode quebrar, assim usaremos useEffect na linha 76:
   }, [gameState]) //ocorre sempre q ha interacao
   
+useEffect(() => {
+  if (winner !== 0) setDraw(false)
+}, [winner])
+
   return (
     <div className={styles.gameContent}>
       <div className={styles.game}>
@@ -74,6 +88,7 @@ function Game () {
             /*onClick={(pos)=>{console.log("CLICK: ", pos)}}*/
             onClick={() => handleClick(pos)}
             isWinner={verifyWinnerLine(pos)}
+            isDraw={draw}
           />
         )
       } 
@@ -82,6 +97,7 @@ function Game () {
         currentPlayer={currentPlayer}
         winner={winner}
         onReset={handleReset}
+        isDraw={draw}
       /> {/*uma boa prática no react é manter os componentes pequenos, quando  crescem, o ideal é dividi-los em suas responsabilidades, por isso levamos a div info game anteriormente neste jsx para a pasta criada gameInfo e jsx e css dentro desta. chamando a funcao GameInfo dentro da tag onde estava a div*/} 
     </div>    
   )
