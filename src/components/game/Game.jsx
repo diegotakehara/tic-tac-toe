@@ -4,6 +4,7 @@ import styles from './Game.module.css'
 
 import GameOption from '../gameOption/GameOption'
 import GameInfo from '../gameInfo/GameInfo'
+import Score from '../score/Score'
 
 /* let array = Array(9).fill(0) - passamos nessa funcao com qtd de posicoes e em fill o valor em q a 1ª pos começará, mas como react nao pode usar let, passaremos uma const dentro da função:*/
 
@@ -78,6 +79,7 @@ useEffect(() => {
 }, [winner])
 
   return (
+    <>
     <div className={styles.gameContent}>
       <div className={styles.game}>
       {
@@ -99,7 +101,9 @@ useEffect(() => {
         onReset={handleReset}
         isDraw={draw}
       /> {/*uma boa prática no react é manter os componentes pequenos, quando  crescem, o ideal é dividi-los em suas responsabilidades, por isso levamos a div info game anteriormente neste jsx para a pasta criada gameInfo e jsx e css dentro desta. chamando a funcao GameInfo dentro da tag onde estava a div*/} 
-    </div>    
+    </div>
+    <Score />
+    </>    
   )
 }
 
