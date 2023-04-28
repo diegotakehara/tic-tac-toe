@@ -10,3 +10,9 @@
   gap: 30px;
   align-items: center;
 }
+
+@media screen and (max-width: 450px) {
+  .gameContent {
+    flex-direction: column;
+  }
+}

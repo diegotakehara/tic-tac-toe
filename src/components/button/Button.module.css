@@ -1,3 +1,15 @@
 .button {
-  
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(17, 114, 199);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.button:disabled {
+  cursor: default;
+  background-color: rgb(118, 168, 224);
+  font-style: italic;
 }
