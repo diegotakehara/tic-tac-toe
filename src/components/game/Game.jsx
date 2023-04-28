@@ -26,6 +26,8 @@ function Game () {
   const [winner, setWinner] = useState(0)
   const [winnerLine, setWinnerLine] = useState([])
   const [draw, setDraw] = useState(false)
+  const [xWinnerTimes, setXWinnerTimes] = useState(0)
+  const [circleWinnerTimes, setCircleWinnerTimes] = useState(0)
 
   const handleClick = (pos) => {
     if (gameState[pos] === 0 && winner === 0) {
@@ -47,6 +49,9 @@ function Game () {
       if (sum === 3 || sum === -3) {
         setWinner(sum / 3)
         setWinnerLine(line)
+        sum > 0 ? 
+          setCircleWinnerTimes(circleWinnerTimes + 1) 
+          : setXWinnerTimes(xWinnerTimes + 1)
       } 
     })
   }
@@ -102,7 +107,10 @@ useEffect(() => {
         isDraw={draw}
       /> {/*uma boa prática no react é manter os componentes pequenos, quando  crescem, o ideal é dividi-los em suas responsabilidades, por isso levamos a div info game anteriormente neste jsx para a pasta criada gameInfo e jsx e css dentro desta. chamando a funcao GameInfo dentro da tag onde estava a div*/} 
     </div>
-    <Score />
+    <Score
+      xWinnerTimes={xWinnerTimes}
+      circleWinnerTimes={circleWinnerTimes}
+    />
     </>    
   )
 }
